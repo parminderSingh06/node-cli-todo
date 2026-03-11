@@ -3,9 +3,7 @@ import { addTask, listTasks, deleteTask } from './storage.js';
 
 const command = argv[2];
 
-const commandArgs = argv[3];
-
-const validCommands = ['add', 'list', 'delete'];
+const argument = argv[3];
 
 const commands = {
     add: addTask,
@@ -14,11 +12,9 @@ const commands = {
 }
 
 //Checks if the command is valid, once loop reaches final command and doesnt break we then throw an error.
-for(let i=0;i<validCommands.length;i++){
-    if(validCommands[i] == command){
-        break;
-    }
-    if(i == validCommands.length-1) console.error("Not a valid command.");
+if(!commands[command]){
+    console.error("Not a valid command.");
+    process.exit(1);
 }
 
-commands[command](commandArgs);
+commands[command](argument);
